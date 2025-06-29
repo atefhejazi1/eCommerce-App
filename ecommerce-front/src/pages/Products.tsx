@@ -7,6 +7,7 @@ import {
   productsCleanUp,
 } from "@store/ProductsSlice/ProductsSlice";
 import { useParams } from "react-router";
+import { Loading } from "@components/feedback";
 
 const Products = () => {
   const params = useParams();
@@ -36,7 +37,9 @@ const Products = () => {
 
   return (
     <Container>
-      <Row>{productsList}</Row>
+      <Loading status={loading} error={error}>
+        <Row>{productsList}</Row>
+      </Loading>
     </Container>
   );
 };
