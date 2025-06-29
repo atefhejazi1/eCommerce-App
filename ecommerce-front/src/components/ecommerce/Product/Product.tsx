@@ -1,9 +1,16 @@
+import type { TProduct } from "@customTypes/product";
+import { useAppDispatch } from "@store/hooks";
+import { addToCart } from "@store/cart/CartSlice";
 import { Button } from "react-bootstrap";
 import styles from "./styles.module.css";
-import type { TProduct } from "@customTypes/product";
 const { product, productImg } = styles;
 
-const Product = ({ title, price, img }: TProduct) => {
+const Product = ({ id, title, price, img }: TProduct) => {
+  const dispatch = useAppDispatch();
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(id));
+  };
   return (
     <div className={product}>
       <div className={productImg}>
@@ -11,7 +18,11 @@ const Product = ({ title, price, img }: TProduct) => {
       </div>
       <h2>{title}</h2>
       <h3>{price} EGP</h3>
-      <Button variant="info" style={{ color: "white" }}>
+      <Button
+        variant="info"
+        style={{ color: "white" }}
+        onClick={addToCartHandler}
+      >
         Add to cart
       </Button>
     </div>
