@@ -7,6 +7,7 @@ import { MainLayout } from "@layouts/index";
 import Login from "@pages/Login";
 import Register from "@pages/Register";
 import ErrorPage from "@pages/ErrorPage";
+import Cart from "@pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
       {
         path: "categories",

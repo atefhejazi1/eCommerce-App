@@ -35,7 +35,7 @@ const Products = () => {
   return (
     <Container>
       <Heading>
-        <span className="text-capitalize">{params.prefix}</span>Products
+        <span className="text-capitalize">{params.prefix} </span>Products
       </Heading>
       <Loading status={loading} error={error}>
         <GridList
