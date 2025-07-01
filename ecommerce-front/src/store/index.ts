@@ -13,7 +13,7 @@ import categories from "./categoriesSlice/categoriesSlice";
 import products from "./ProductsSlice/ProductsSlice";
 import cart from "./cart/CartSlice";
 import storage from "redux-persist/lib/storage";
-
+import wishlist from "./wishlist/wishlistSlice";
 // const rootPersistConfig = {
 //   key: "root",
 //   storage,
@@ -26,10 +26,17 @@ const cartPersistConfig = {
   whitelist: ["items"],
 };
 
+const wishlistPersistConfig = {
+  key: "wishlist",
+  storage,
+  whitelist: ["itemsId"],
+};
+
 const rootReducer = combineReducers({
   categories,
   products,
   cart: persistReducer(cartPersistConfig, cart),
+  wishlist: persistReducer(wishlistPersistConfig, wishlist),
 });
 
 // const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

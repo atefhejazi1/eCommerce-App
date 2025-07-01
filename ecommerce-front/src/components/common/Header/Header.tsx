@@ -1,8 +1,8 @@
 import { Badge, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { HeaderBasket } from "../../ecommerce";
+import { HeaderBasket, HeaderWishlist } from "../../ecommerce";
 import styles from "./styles.module.css";
 import { Link } from "react-router";
-const { headerContainer, headerLogo } = styles;
+const { headerContainer, headerLogo , headerLeftBar } = styles;
 function Header() {
   return (
     <header>
@@ -10,7 +10,10 @@ function Header() {
         <h1 className={headerLogo}>
           <span>Our</span> <Badge bg="info">Ecommerce</Badge>
         </h1>
-        <HeaderBasket />
+        <div className={headerLeftBar}>
+          <HeaderWishlist />
+          <HeaderBasket />
+        </div>
       </div>
 
       <Navbar expand="lg" className="bg-dark navbar-dark">

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo,  } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Container } from "react-bootstrap";
 import {
@@ -15,14 +15,17 @@ const Products = () => {
   const dispatch = useAppDispatch();
   const { loading, error, records } = useAppSelector((state) => state.products);
 
+  const wishlistItemsId = useAppSelector((state) => state.wishlist.itemsId);
+
   const cartItems = useAppSelector((state) => state.cart.items);
 
   const productsFullInfo = useMemo(() => {
     return records.map((el) => ({
       ...el,
       quantity: cartItems[el.id] || 0,
+      isLiked: wishlistItemsId.includes(el.id),
     }));
-  }, [records, cartItems]); // Dependencies: records and cartItems
+  }, [records, cartItems , wishlistItemsId]); // Dependencies: records and cartItems
 
   useEffect(() => {
     dispatch(actGetProductsByCatPrefix(params.prefix as string));
