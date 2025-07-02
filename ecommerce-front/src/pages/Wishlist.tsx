@@ -1,40 +1,13 @@
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import {
-  actGetWishlist,
-  productsFullInfoCleanUp,
-} from "@store/wishlist/wishlistSlice";
-import { useEffect } from "react";
-
 import { Loading } from "@components/feedback";
 import { GridList, Heading } from "@components/common";
 import { Product } from "@components/ecommerce";
+import useWishlist from "@hooks/useWishlist";
 
 function Wishlist() {
-  const dispatch = useAppDispatch();
-  const { loading, error, productsFullInfo } = useAppSelector(
-    (state) => state.wishlist
-  );
-
-  const wishlistItemsId = useAppSelector((state) => state.wishlist.itemsId);
-
-  const records = () => {
-    return productsFullInfo.map((el) => ({
-      ...el,
-      quantity: wishlistItemsId[el.id] || 0,
-      isLiked: true,
-    }));
-  }; // Dependencies: records and cartItems
-
-  useEffect(() => {
-    dispatch(actGetWishlist());
-    return () => {
-      dispatch(productsFullInfoCleanUp());
-    };
-  }, [dispatch]);
-
+  const { loading, error, records } = useWishlist();
   return (
     <>
-      <Heading>Your Wishlist </Heading>
+      <Heading title={"Your Wishlist"} />
 
       <Loading status={loading} error={error}>
         <GridList

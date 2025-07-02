@@ -1,4 +1,4 @@
-import type { RootState } from "@store/index";
+import type { RootState } from "@store";
 import { createSelector } from "@reduxjs/toolkit";
 
 const getCartTotalQuantitySelector = createSelector(

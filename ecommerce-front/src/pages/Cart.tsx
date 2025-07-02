@@ -1,43 +1,14 @@
-import { useCallback, useEffect } from "react";
-import {
-  actGetProductsByItems,
-  cartItemRemove,
-  cartItemsChangeQuantity,
-} from "@store/cart/CartSlice";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Heading } from "@components/common";
 import { CartItemsList, CartSubtotalPrice } from "@components/ecommerce";
 import { Loading } from "@components/feedback";
+import useCart from "@hooks/useCart";
+
 function Cart() {
-  const dispatch = useAppDispatch();
-
-  const { items, productsFullInfo, loading, error } = useAppSelector(
-    (state) => state.cart
-  );
-
-  useEffect(() => {
-    dispatch(actGetProductsByItems());
-  }, [dispatch]);
-
-  const products = productsFullInfo.map((el) => ({
-    ...el,
-    quantity: items[el.id],
-  }));
-
-  const changeQuantityHandler = useCallback(
-    (id: number, quantity: number) => {
-      dispatch(cartItemsChangeQuantity({ id, quantity }));
-    },
-    [dispatch]
-  );
-
-  const removeItemHandler = useCallback((id: number) => {
-    dispatch(cartItemRemove(id));
-  }, []);
-
+  const { loading, error, products, changeQuantityHandler, removeItemHandler } =
+    useCart();
   return (
     <>
-      <Heading>Cart</Heading>
+      <Heading title={"Cart"} />
       <Loading status={loading} error={error}>
         {products.length ? (
           <>

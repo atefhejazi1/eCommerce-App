@@ -1,4 +1,4 @@
-import type { TProduct } from "@customTypes/product";
+import type { TProduct } from "@types";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/CartSlice";
 import { memo, useEffect, useState } from "react";
