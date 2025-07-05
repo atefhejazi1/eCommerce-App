@@ -1,21 +1,45 @@
+import CartSkeleton from "@components/skeletons/CartSkeleton/CartSkeleton";
+import CategorySkeleton from "@components/skeletons/CategorySkeleton/CategorySkeleton";
+import ProductSkeleton from "@components/skeletons/ProductSkeleton/ProductSkeleton";
 import type { TLoading } from "@types";
+
+import LottieHandler from "../LottieHandler/LottieHandler";
+
+const skeletonsTypes = {
+  category: CategorySkeleton,
+  product: ProductSkeleton,
+  cart: CartSkeleton,
+};
 
 type LoadingProps = {
   status: TLoading;
   error: null | string;
   children: React.ReactNode;
+  type?: keyof typeof skeletonsTypes;
 };
 
-function Loading({ status, error, children }: LoadingProps) {
+const Loading = ({
+  status,
+  error,
+  children,
+  type = "category",
+}: LoadingProps) => {
+  const Component = skeletonsTypes[type];
+
   if (status == "pending") {
-    return <p>loading please wait... </p>;
+    return <Component />;
   }
 
   if (status == "failed") {
-    return <p>{error} </p>;
+    return (
+      <p>
+        {" "}
+        <LottieHandler type="error" message={error as string} />
+      </p>
+    );
   }
 
   return <>{children}</>;
-}
+};
 
 export default Loading;

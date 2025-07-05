@@ -9,7 +9,7 @@ function Cart() {
   return (
     <>
       <Heading title={"Cart"} />
-      <Loading status={loading} error={error}>
+      <Loading status={loading} error={error} type="cart">
         {products.length ? (
           <>
             <CartItemsList

@@ -9,8 +9,9 @@ function Wishlist() {
     <>
       <Heading title={"Your Wishlist"} />
 
-      <Loading status={loading} error={error}>
+      <Loading status={loading} error={error} type="product">
         <GridList
+          emptyMessage="Your Wishlist is Empty !!"
           records={records()}
           renderItem={(record) => <Product {...record} />}
         />

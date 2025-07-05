@@ -9,8 +9,9 @@ const Products = () => {
   return (
     <Container>
       <Heading title={`${productPrefix?.toUpperCase()} Products`} />
-      <Loading status={loading} error={error}>
+      <Loading status={loading} error={error} type="product">
         <GridList
+          emptyMessage="There are No Products !!"
           records={productsFullInfo}
           renderItem={(record) => <Product {...record} />}
         />
@@ -18,7 +19,5 @@ const Products = () => {
     </Container>
   );
 };
-
-
 
 export default Products;
