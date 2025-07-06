@@ -2,12 +2,19 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, type signUpType } from "@validations/signUpSchema";
 import { Heading } from "@components/common";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Input } from "@components/Form";
 import useCheckEmailAvailability from "@hooks/useCheckEmailAvailability";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { actAuthRegister, resetUI } from "@store/auth/authSlice";
+import { Navigate, useNavigate } from "react-router";
+import { useEffect } from "react";
 function Register() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { loading, error, accessToken } = useAppSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -26,8 +33,13 @@ function Register() {
     resetCheckEmailAvailability,
   } = useCheckEmailAvailability();
 
-  const submitForm: SubmitHandler<signUpType> = (data) => {
-    console.log(data);
+  const submitForm: SubmitHandler<signUpType> = async (data) => {
+    const { firstName, lastName, email, password } = data;
+    dispatch(actAuthRegister({ firstName, lastName, email, password }))
+      .unwrap()
+      .then(() => {
+        navigate("/login?message=account_created");
+      });
   };
 
   const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
@@ -43,6 +55,16 @@ function Register() {
       resetCheckEmailAvailability();
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetUI());
+    };
+  }, [dispatch]);
+
+  if (accessToken) {
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <>
@@ -106,9 +128,27 @@ function Register() {
               error={errors.confirmPassword?.message}
             />
 
-            <Button variant="info" type="submit" style={{ color: "white" }}>
-              Submit
+            <Button
+              variant="info"
+              type="submit"
+              style={{ color: "white" }}
+              disabled={
+                emailAvailabilityStatus === "checking"
+                  ? true
+                  : false || loading === "pending"
+              }
+            >
+              {loading === "pending" ? (
+                <>
+                  <Spinner animation="border" size="sm"></Spinner> Loading...
+                </>
+              ) : (
+                "Submit"
+              )}
             </Button>
+            {error && (
+              <p style={{ color: "#dc3545", marginTop: "10px" }}>{error}</p>
+            )}
           </Form>
         </Col>
       </Row>

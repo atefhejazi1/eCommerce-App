@@ -1,5 +1,34 @@
 {
-  "users": [{ "email": "atefhejazi10@gmail.com" }],
+  "users": [
+    {
+      "email": "atefhejazi10@gmail.com",
+      "password": "$2a$10$soG3XxtpgrOOiIdKs8vLneU6xtDw6DXEQZa9Esv90hG3jBAEFHIpa",
+      "firstName": "Atef ",
+      "lastName": "Hejazi",
+      "id": 1
+    },
+    {
+      "email": "vapasitequ@mailinator.com",
+      "password": "$2a$10$Uz525vDc0x8AxNGxhB0sLu/.ptpJjI0VLhRcq0pXLtgIp5J7ECFhO",
+      "firstName": "Rowan",
+      "lastName": "Cline",
+      "id": 2
+    },
+    {
+      "email": "zacyq@mailinator.com",
+      "password": "$2a$10$oLlGziq7LoVBUtT6zYMVpuXLi5xTkhspkQnWYLNv/vooSPmbunmoW",
+      "firstName": "Quinlan",
+      "lastName": "Gould",
+      "id": 3
+    },
+    {
+      "email": "wyqos@mailinator.com",
+      "password": "$2a$10$NT/I57OEayyHyp9MB6.fwucwvnwW5XcgFgCfnk8O00g9h/hxC2DBK",
+      "firstName": "Kyle",
+      "lastName": "Preston",
+      "id": 4
+    }
+  ],
   "category": [
     {
       "id": 1,

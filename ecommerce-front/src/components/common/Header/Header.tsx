@@ -1,48 +1,86 @@
-import { Badge, Container, Nav, Navbar } from "react-bootstrap";
-
-import styles from "./styles.module.css";
-import { Link } from "react-router";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { authLogout } from "@store/auth/authSlice";
+import { Badge, Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import HeaderLeftBar from "./HeaderLeftBar/HeaderLeftBar";
+import styles from "./styles.module.css";
+import { NavLink } from "react-router";
+
 const { headerContainer, headerLogo } = styles;
-function Header() {
+
+const Header = () => {
+  const dispatch = useAppDispatch();
+
+  const { accessToken, user } = useAppSelector((state) => state.auth);
+
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     dispatch(actGetWishlist("ProductIds"));
+  //   }
+  // }, [dispatch, accessToken]);
+
   return (
     <header>
       <div className={headerContainer}>
         <h1 className={headerLogo}>
-          <span>Our</span> <Badge bg="info">eCommerce</Badge>
+          <span>Our</span> <Badge bg="info">eCom</Badge>
         </h1>
-
         <HeaderLeftBar />
       </div>
-
-      <Navbar expand="lg" className="bg-dark navbar-dark">
+      <Navbar
+        expand="lg"
+        className="bg-body-tertiary"
+        bg="dark"
+        data-bs-theme="dark"
+      >
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to={"/"}>
+              <Nav.Link as={NavLink} to="/">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to={"/categories"}>
+              <Nav.Link as={NavLink} to="categories">
                 Categories
               </Nav.Link>
-              <Nav.Link as={Link} to={"/about-us"}>
+              <Nav.Link as={NavLink} to="about-us">
                 About
               </Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link as={Link} to={"/login"}>
-                Login
-              </Nav.Link>
-              <Nav.Link as={Link} to={"/register"}>
-                Register
-              </Nav.Link>
+              {!accessToken ? (
+                <>
+                  <Nav.Link as={NavLink} to="login">
+                    Login
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="register">
+                    Register
+                  </Nav.Link>
+                </>
+              ) : (
+                <NavDropdown
+                  title={`Welcome: ${user?.firstName} ${user?.lastName}`}
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item as={NavLink} to="profile">
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>Orders</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    as={NavLink}
+                    to="/"
+                    onClick={() => dispatch(authLogout())}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
     </header>
   );
-}
+};
 
 export default Header;
