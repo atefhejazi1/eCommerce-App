@@ -1,17 +1,17 @@
 import type { TProduct } from "@types";
 import CartItem from "../CartItem/CartItem";
 
-type CartItemProps = {
+type CartItemListProps = {
   products: TProduct[];
   changeQuantityHandler: (id: number, quantity: number) => void;
   removeItemHandler: (id: number) => void;
 };
 
-function CartItemsList({
+const CartItemList = ({
   products,
   changeQuantityHandler,
   removeItemHandler,
-}: CartItemProps) {
+}: CartItemListProps) => {
   const renderList = products.map((el) => (
     <CartItem
       key={el.id}
@@ -20,7 +20,8 @@ function CartItemsList({
       removeItemHandler={removeItemHandler}
     />
   ));
-  return <>{renderList}</>;
-}
 
-export default CartItemsList;
+  return <div>{renderList}</div>;
+};
+
+export default CartItemList;

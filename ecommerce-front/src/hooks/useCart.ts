@@ -1,31 +1,23 @@
 import { useCallback, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
 import {
   actGetProductsByItems,
   cartItemRemove,
   cartItemsChangeQuantity,
   cleanCartProductsFullInfo,
-} from "@store/cart/CartSlice";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
+} from "@store/cart/cartSlice";
+import { resetOrderStatus } from "@store/orders/ordersSlice";
 
-function useCart() {
+const useCart = () => {
   const dispatch = useAppDispatch();
 
   const { items, productsFullInfo, loading, error } = useAppSelector(
     (state) => state.cart
   );
 
-  useEffect(() => {
-    const promise = dispatch(actGetProductsByItems());
-    return () => {
-      dispatch(cleanCartProductsFullInfo());
-      promise.abort();
-    };
-  }, [dispatch]);
+  const userAccessToken = useAppSelector((state) => state.auth.accessToken);
 
-  const products = productsFullInfo.map((el) => ({
-    ...el,
-    quantity: items[el.id],
-  }));
+  const placeOrderStatus = useAppSelector((state) => state.orders.loading);
 
   const changeQuantityHandler = useCallback(
     (id: number, quantity: number) => {
@@ -34,10 +26,37 @@ function useCart() {
     [dispatch]
   );
 
-  const removeItemHandler = useCallback((id: number) => {
-    dispatch(cartItemRemove(id));
-  }, []);
-  return { loading, error, products, changeQuantityHandler, removeItemHandler };
-}
+  const removeItemHandler = useCallback(
+    (id: number) => {
+      dispatch(cartItemRemove(id));
+    },
+    [dispatch]
+  );
+
+  const products = productsFullInfo.map((el) => ({
+    ...el,
+    quantity: items[el.id],
+  }));
+
+  useEffect(() => {
+    const promise = dispatch(actGetProductsByItems());
+
+    return () => {
+      promise.abort();
+      dispatch(cleanCartProductsFullInfo());
+      dispatch(resetOrderStatus());
+    };
+  }, [dispatch]);
+
+  return {
+    loading,
+    error,
+    products,
+    userAccessToken,
+    placeOrderStatus,
+    changeQuantityHandler,
+    removeItemHandler,
+  };
+};
 
 export default useCart;

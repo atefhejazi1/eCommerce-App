@@ -7,10 +7,11 @@ import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 
 import { Button, Col, Modal, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
-const { product, productImg, maximumNotice, wishlistBtn } = styles;
+const { product, maximumNotice, wishlistBtn } = styles;
 
 import LikeFill from "@assets/svg/like-fill.svg?react";
 import Like from "@assets/svg/like.svg?react";
+import ProductInfo from "../ProductInfo/ProductInfo";
 
 const Product = memo(
   ({
@@ -73,40 +74,39 @@ const Product = memo(
             You need to login first to add this item to your wishlist.
           </Modal.Body>
         </Modal>
-        <Col className={product}>
-          <div className={wishlistBtn} onClick={LikeToggleHandler}>
-            {isLoading ? (
-              <Spinner animation="border" size="sm" variant="primary" />
-            ) : isLiked ? (
-              <LikeFill />
-            ) : (
-              <Like />
-            )}
-          </div>
-          <div className={productImg}>
-            <img src={img} alt={title} />
-          </div>
-          <h2>{title}</h2>
-          <h3>{price.toFixed(2)} EGP</h3>
-          <p className={maximumNotice}>
-            {quantityReachedToMax
-              ? "You reach to the limit"
-              : `You can add ${currentRemainingQuantity} item(s)`}
-          </p>
-          <Button
-            variant="info"
-            style={{ color: "white" }}
-            onClick={addToCartHandler}
-            disabled={isBtnDisabled || quantityReachedToMax}
-          >
-            {isBtnDisabled ? (
-              <>
-                <Spinner animation="border" size="sm" /> Loading...
-              </>
-            ) : (
-              "Add to cart"
-            )}
-          </Button>
+
+        <Col>
+          <ProductInfo title={title} price={price} img={img} direction="row">
+            <div className={wishlistBtn} onClick={LikeToggleHandler}>
+              {isLoading ? (
+                <Spinner animation="border" size="sm" variant="primary" />
+              ) : isLiked ? (
+                <LikeFill />
+              ) : (
+                <Like />
+              )}
+            </div>
+
+            <p className={maximumNotice}>
+              {quantityReachedToMax
+                ? "You reach to the limit"
+                : `You can add ${currentRemainingQuantity} item(s)`}
+            </p>
+            <Button
+              variant="info"
+              style={{ color: "white", width: "100%" }}
+              onClick={addToCartHandler}
+              disabled={isBtnDisabled || quantityReachedToMax}
+            >
+              {isBtnDisabled ? (
+                <>
+                  <Spinner animation="border" size="sm" /> Loading...
+                </>
+              ) : (
+                "Add to cart"
+              )}
+            </Button>
+          </ProductInfo>
         </Col>
       </>
     );

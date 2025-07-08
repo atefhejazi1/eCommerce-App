@@ -45,6 +45,11 @@ const cartSlice = createSlice({
     cleanCartProductsFullInfo: (state) => {
       state.productsFullInfo = [];
     },
+
+    clearCartAfterPlaceOrder: (state) => {
+      state.items = {};
+      state.productsFullInfo = [];
+    },
   },
 
   extraReducers: (builder) => {
@@ -71,6 +76,7 @@ export const {
   cartItemsChangeQuantity,
   cartItemRemove,
   cleanCartProductsFullInfo,
+  clearCartAfterPlaceOrder,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
