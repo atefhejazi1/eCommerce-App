@@ -12,17 +12,17 @@ function useWishlist() {
   );
 
   const wishlistItemsId = useAppSelector((state) => state.wishlist.itemsId);
-
   const records = () => {
     return productsFullInfo.map((el) => ({
       ...el,
       quantity: wishlistItemsId[el.id] || 0,
       isLiked: true,
+      isAuthenticated: true,
     }));
   }; // Dependencies: records and cartItems
 
   useEffect(() => {
-    const promise = dispatch(actGetWishlist());
+    const promise = dispatch(actGetWishlist("productsFullInfo"));
     return () => {
       dispatch(CleanWishlistProductsFullInfo());
       promise.abort();

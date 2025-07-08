@@ -5,7 +5,7 @@ import { memo, useEffect, useState } from "react";
 
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 
-import { Button, Col, Spinner } from "react-bootstrap";
+import { Button, Col, Modal, Spinner } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { product, productImg, maximumNotice, wishlistBtn } = styles;
 
@@ -13,7 +13,18 @@ import LikeFill from "@assets/svg/like-fill.svg?react";
 import Like from "@assets/svg/like.svg?react";
 
 const Product = memo(
-  ({ id, title, price, img, max, quantity, isLiked }: TProduct) => {
+  ({
+    id,
+    title,
+    price,
+    img,
+    max,
+    quantity,
+    isLiked,
+    isAuthenticated,
+  }: TProduct) => {
+    const [showModal, setShowModal] = useState(false);
+
     const dispatch = useAppDispatch();
     const [isBtnDisabled, setIsBtnDisabled] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -38,52 +49,66 @@ const Product = memo(
     };
 
     const LikeToggleHandler = () => {
-      if (isLoading) {
-        return;
+      if (isAuthenticated) {
+        if (isLoading) {
+          return;
+        }
+        setIsLoading(true);
+        dispatch(actLikeToggle(id))
+          .unwrap()
+          .then(() => setIsLoading(false))
+          .catch(() => setIsLoading(false));
+      } else {
+        setShowModal(true);
       }
-      setIsLoading(true);
-      dispatch(actLikeToggle(id))
-        .unwrap()
-        .then(() => setIsLoading(false))
-        .catch(() => setIsLoading(false));
     };
 
     return (
-      <Col className={product}>
-        <div className={wishlistBtn} onClick={LikeToggleHandler}>
-          {isLoading ? (
-            <Spinner animation="border" size="sm" variant="primary" />
-          ) : isLiked ? (
-            <LikeFill />
-          ) : (
-            <Like />
-          )}
-        </div>
-        <div className={productImg}>
-          <img src={img} alt={title} />
-        </div>
-        <h2>{title}</h2>
-        <h3>{price.toFixed(2)} EGP</h3>
-        <p className={maximumNotice}>
-          {quantityReachedToMax
-            ? "You reach to the limit"
-            : `You can add ${currentRemainingQuantity} item(s)`}
-        </p>
-        <Button
-          variant="info"
-          style={{ color: "white" }}
-          onClick={addToCartHandler}
-          disabled={isBtnDisabled || quantityReachedToMax}
-        >
-          {isBtnDisabled ? (
-            <>
-              <Spinner animation="border" size="sm" /> Loading...
-            </>
-          ) : (
-            "Add to cart"
-          )}
-        </Button>
-      </Col>
+      <>
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Login Required</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            You need to login first to add this item to your wishlist.
+          </Modal.Body>
+        </Modal>
+        <Col className={product}>
+          <div className={wishlistBtn} onClick={LikeToggleHandler}>
+            {isLoading ? (
+              <Spinner animation="border" size="sm" variant="primary" />
+            ) : isLiked ? (
+              <LikeFill />
+            ) : (
+              <Like />
+            )}
+          </div>
+          <div className={productImg}>
+            <img src={img} alt={title} />
+          </div>
+          <h2>{title}</h2>
+          <h3>{price.toFixed(2)} EGP</h3>
+          <p className={maximumNotice}>
+            {quantityReachedToMax
+              ? "You reach to the limit"
+              : `You can add ${currentRemainingQuantity} item(s)`}
+          </p>
+          <Button
+            variant="info"
+            style={{ color: "white" }}
+            onClick={addToCartHandler}
+            disabled={isBtnDisabled || quantityReachedToMax}
+          >
+            {isBtnDisabled ? (
+              <>
+                <Spinner animation="border" size="sm" /> Loading...
+              </>
+            ) : (
+              "Add to cart"
+            )}
+          </Button>
+        </Col>
+      </>
     );
   }
 );

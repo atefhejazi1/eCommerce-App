@@ -27,6 +27,13 @@
       "firstName": "Kyle",
       "lastName": "Preston",
       "id": 4
+    },
+    {
+      "email": "gale@mailinator.com",
+      "password": "$2a$10$X6LMfLh0zrJvsFh1MSWvZeZ1gsHK2giSQfEpj.xMtJ1NeAeQ18xM.",
+      "firstName": "Felix",
+      "lastName": "Pena",
+      "id": 5
     }
   ],
   "category": [
@@ -127,5 +134,21 @@
       "max": 2
     }
   ],
-  "wishlist": []
+  "wishlist": [
+    {
+      "userId": "1",
+      "productId": 2,
+      "id": 2
+    },
+    {
+      "userId": "1",
+      "productId": 3,
+      "id": 3
+    },
+    {
+      "userId": "1",
+      "productId": 1,
+      "id": 4
+    }
+  ]
 }
