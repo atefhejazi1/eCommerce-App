@@ -42,4 +42,4 @@ The app provides a seamless shopping experience with category browsing, product 
 ## 📺 Demo Video (1 minute)
 
 Watch the demo video to see the app in action:  
-👉 [https://drive.google.com/file/d/1IzysDBtE1VRSUWsuQwhuytB7DBmHDGtm/view?usp=sharing](#)
+👉 https://drive.google.com/file/d/1IzysDBtE1VRSUWsuQwhuytB7DBmHDGtm/view?usp=sharing
