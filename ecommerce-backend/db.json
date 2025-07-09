@@ -134,7 +134,23 @@
       "max": 2
     }
   ],
-  "wishlist": [],
+  "wishlist": [
+    {
+      "userId": "1",
+      "productId": 1,
+      "id": 1
+    },
+    {
+      "userId": "1",
+      "productId": 2,
+      "id": 2
+    },
+    {
+      "userId": "1",
+      "productId": 3,
+      "id": 3
+    }
+  ],
   "orders": [
     {
       "userId": 1,
@@ -240,6 +256,27 @@
       ],
       "subtotal": 400,
       "id": 5
+    },
+    {
+      "userId": 1,
+      "items": [
+        {
+          "id": 2,
+          "title": "Regular Fit Jersey top",
+          "price": 229,
+          "img": "https://placehold.co/300x400/png?text=Men+Regular+Fit+Jersey",
+          "quantity": 2
+        },
+        {
+          "id": 3,
+          "title": "Cotton polo shirt",
+          "price": 200,
+          "img": "https://placehold.co/300x400/png?text=Men+Polo+Shirt",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 658,
+      "id": 6
     }
   ]
 }
