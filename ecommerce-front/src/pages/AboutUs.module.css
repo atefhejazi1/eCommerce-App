@@ -1,0 +1,91 @@
+.subTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.body {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.storyVisual {
+  background: linear-gradient(135deg, var(--primary-light), #e0f8fd);
+  border-radius: var(--radius);
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  border: 1px solid var(--border);
+}
+
+.storyVisual p {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 8px 0 0;
+}
+
+/* Stats */
+.statsSection {
+  background: linear-gradient(135deg, #0f172a, #1e3a5f);
+  border-radius: var(--radius);
+  padding: 40px 24px;
+  margin: 48px 0;
+}
+
+.statCard {
+  padding: 8px;
+}
+
+.statNumber {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Values */
+.valueCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: center;
+  height: 100%;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.valueCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.valueIcon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.valueTitle {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.valueDesc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}

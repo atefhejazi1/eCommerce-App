@@ -4,7 +4,6 @@ import { actPlaceOrder } from "@store/orders/ordersSlice";
 import { clearCartAfterPlaceOrder } from "@store/cart/CartSlice";
 import { useState } from "react";
 import { Button, Modal, Spinner } from "react-bootstrap";
-
 import styles from "./styles.module.css";
 
 type CartSubtotalPriceProps = {
@@ -22,14 +21,11 @@ const CartSubtotalPrice = ({
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  const subtotal = products.reduce((accumulator, el) => {
-    const price = el.price;
-    const quantity = el.quantity;
-    if (quantity && typeof quantity === "number") {
-      return accumulator + price * quantity;
-    } else {
-      return accumulator;
+  const subtotal = products.reduce((acc, el) => {
+    if (el.quantity && typeof el.quantity === "number") {
+      return acc + el.price * el.quantity;
     }
+    return acc;
   }, 0);
 
   const modalHandler = () => {
@@ -45,9 +41,7 @@ const CartSubtotalPrice = ({
         dispatch(clearCartAfterPlaceOrder());
         setShowModal(false);
       })
-      .catch((error) => {
-        setError(error);
-      })
+      .catch((err) => setError(err))
       .finally(() => setLoading(false));
   };
 
@@ -55,53 +49,50 @@ const CartSubtotalPrice = ({
     <>
       <Modal show={showModal} onHide={modalHandler} backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title>Placing Order</Modal.Title>
+          <Modal.Title>Confirm Order</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to place order with Subtotal:{" "}
-          {subtotal.toFixed(2)} EGP
+          Place order for{" "}
+          <strong>{subtotal.toFixed(2)} EGP</strong>?
           {!loading && error && (
             <p style={{ color: "#DC3545", marginTop: "10px" }}>{error}</p>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={modalHandler}>
-            Close
+          <Button variant="outline-secondary" onClick={modalHandler}>
+            Cancel
           </Button>
           <Button
             variant="info"
-            style={{ color: "white" }}
+            style={{ color: "white", fontWeight: 600 }}
             onClick={placeOrderHandler}
           >
             {loading ? (
               <>
-                <Spinner animation="border" size="sm"></Spinner> Loading...
+                <Spinner animation="border" size="sm" /> Placing...
               </>
             ) : (
-              "Confirm"
+              "Confirm Order"
             )}
           </Button>
         </Modal.Footer>
       </Modal>
 
-      <div className={styles.container}>
-        <span>Subtotal:</span>
-        <span>{subtotal.toFixed(2)} EGP</span>
-      </div>
-      {userAccessToken && (
-        <div className={styles.container}>
-          <span> </span>
-          <span>
-            <Button
-              variant="info"
-              style={{ color: "white" }}
-              onClick={modalHandler}
-            >
-              Place Order
-            </Button>
-          </span>
+      <div className={styles.summaryBox}>
+        <div>
+          <p className={styles.subtotalLabel}>Order Subtotal</p>
+          <p className={styles.subtotalAmount}>{subtotal.toFixed(2)} EGP</p>
         </div>
-      )}
+        {userAccessToken && (
+          <Button
+            variant="info"
+            style={{ color: "white", fontWeight: 600, padding: "10px 32px" }}
+            onClick={modalHandler}
+          >
+            Place Order
+          </Button>
+        )}
+      </div>
     </>
   );
 };

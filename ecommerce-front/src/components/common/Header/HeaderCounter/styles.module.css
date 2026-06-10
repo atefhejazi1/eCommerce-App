@@ -1,31 +1,49 @@
 .container {
-  align-self: flex-end;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition);
+}
+
+.container:hover {
+  background-color: var(--primary-light);
 }
 
 .container h3 {
-  font-size: 15px;
-  margin-left: 4px;
-  margin-bottom: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .iconWrapper {
   position: relative;
 }
 
+.iconWrapper svg {
+  width: 24px;
+  height: 24px;
+}
+
 .totalNum {
-  background-color: #0dcaf0;
-  height: 22px;
-  width: 22px;
+  background-color: var(--primary);
+  color: #fff;
+  height: 18px;
+  width: 18px;
   border-radius: 50%;
   text-align: center;
-  border: 1px solid;
+  line-height: 18px;
   position: absolute;
-  top: -16px;
-  right: -5px;
-  font-size: 12px;
+  top: -8px;
+  right: -8px;
+  font-size: 10px;
+  font-weight: 700;
 }
 
 .pumpAnimate {
@@ -33,19 +51,8 @@
 }
 
 @keyframes pumping {
-  0% {
-    transform: scale(1);
-  }
-  20% {
-    transform: scale(0.8);
-  }
-  30% {
-    transform: scale(1.1);
-  }
-  50% {
-    transform: scale(1.7);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0%   { transform: scale(1); }
+  20%  { transform: scale(0.8); }
+  50%  { transform: scale(1.5); }
+  100% { transform: scale(1); }
 }

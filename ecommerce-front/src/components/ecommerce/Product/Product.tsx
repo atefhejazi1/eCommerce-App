@@ -94,7 +94,7 @@ const Product = memo(
             </p>
             <Button
               variant="info"
-              style={{ color: "white", width: "100%" }}
+              style={{ color: "white", width: "100%", fontWeight: 600, marginTop: "auto" }}
               onClick={addToCartHandler}
               disabled={isBtnDisabled || quantityReachedToMax}
             >

@@ -1,0 +1,61 @@
+.tableWrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.table {
+  margin: 0;
+}
+
+.table thead tr th {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  background: var(--bg-section);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 16px;
+}
+
+.table tbody tr td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.orderBadge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+.price {
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.detailsBtn {
+  background: none;
+  border: 1px solid var(--primary);
+  color: var(--primary-dark);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.detailsBtn:hover {
+  background: var(--primary);
+  color: #fff;
+}

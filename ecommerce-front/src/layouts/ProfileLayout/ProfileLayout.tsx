@@ -1,20 +1,33 @@
-import { Row, Col, ListGroup } from "react-bootstrap";
-import { Link, Outlet } from "react-router";
+import { Row, Col } from "react-bootstrap";
+import { NavLink, Outlet } from "react-router";
+import styles from "./styles.module.css";
 
 const ProfileLayout = () => {
   return (
-    <Row>
+    <Row className="g-4">
       <Col md={3}>
-        <ListGroup as="ul">
-          <ListGroup.Item as={Link} to="">
-            Account Info
-          </ListGroup.Item>
-          <ListGroup.Item as={Link} to="orders">
-            Orders
-          </ListGroup.Item>
-        </ListGroup>
+        <nav className={styles.sidebar}>
+          <p className={styles.sidebarLabel}>My Account</p>
+          <NavLink
+            to=""
+            end
+            className={({ isActive }) =>
+              `${styles.sidebarLink} ${isActive ? styles.active : ""}`
+            }
+          >
+            👤 Account Info
+          </NavLink>
+          <NavLink
+            to="orders"
+            className={({ isActive }) =>
+              `${styles.sidebarLink} ${isActive ? styles.active : ""}`
+            }
+          >
+            📦 My Orders
+          </NavLink>
+        </nav>
       </Col>
-      <Col>
+      <Col md={9}>
         <Outlet />
       </Col>
     </Row>

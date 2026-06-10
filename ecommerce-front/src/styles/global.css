@@ -1,4 +1,87 @@
+/* ── Design tokens ────────────────────────────────────── */
+:root {
+  --primary:       #0dcaf0;
+  --primary-dark:  #0aa5c7;
+  --primary-light: #e0f8fd;
+  --bg-body:       #f4f6fb;
+  --bg-card:       #ffffff;
+  --bg-section:    #f1f4f8;
+  --text-primary:  #0f172a;
+  --text-muted:    #64748b;
+  --border:        #e2e8f0;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,.07);
+  --shadow-md:     0 4px 14px rgba(0,0,0,.10);
+  --shadow-lg:     0 10px 32px rgba(0,0,0,.14);
+  --radius:        14px;
+  --radius-sm:     8px;
+  --transition:    .2s ease;
+
+  /* Override Bootstrap CSS variables */
+  --bs-body-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --bs-body-bg: var(--bg-body);
+  --bs-body-color: var(--text-primary);
+  --bs-border-color: var(--border);
+  --bs-link-color: var(--primary-dark);
+  --bs-link-hover-color: var(--primary);
+  --bs-info: #0dcaf0;
+  --bs-info-rgb: 13, 202, 240;
+  --bs-border-radius: var(--radius-sm);
+  --bs-border-radius-lg: var(--radius);
+  --bs-form-select-focus-box-shadow: 0 0 0 3px rgba(13,202,240,.20);
+  --bs-input-focus-border-color: var(--primary);
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Suppress horizontal scrollbar caused by 100vw full-bleed sections.
+   Must live on html (the scroll root), NOT on a narrow container child. */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  /* subtle dot-grid background */
+  background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+/* ── Bootstrap form overrides ────────────────────────── */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(13,202,240,.18);
+}
+
+.form-control,
+.form-select {
+  border-radius: var(--radius-sm);
+  border-color: var(--border);
+  font-size: 14px;
+  padding: 10px 13px;
+  background-color: #fff;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+
+/* ── Nav active ───────────────────────────────────────── */
 .active {
-  text-decoration: underline;
-  color: red;
+  color: var(--primary) !important;
+  font-weight: 600;
 }

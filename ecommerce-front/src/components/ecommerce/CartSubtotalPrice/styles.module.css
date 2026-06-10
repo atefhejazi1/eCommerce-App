@@ -1,11 +1,25 @@
-.container {
+.summaryBox {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-top: 24px;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 60px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.container span {
-  display: block;
-  font-size: 17px;
-  font-weight: bold;
+.subtotalLabel {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.subtotalAmount {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
 }

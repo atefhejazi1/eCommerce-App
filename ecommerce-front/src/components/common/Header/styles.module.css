@@ -1,23 +1,28 @@
 .headerContainer {
-  padding: 20px 0;
+  padding: 12px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
 }
 
 .headerLogo {
-  color: inherit;
-  text-decoration: inherit;
-  font-size: 2.3rem;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-decoration: none;
   margin: 0;
+  letter-radius: -1px;
+  line-height: 1;
 }
 
-.headerLogo h1 {
-  margin: 0;
-  display: flex;
+.headerLogo span {
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-right: 4px;
 }
 
-.headerLogo h1 span {
-  display: block;
-  margin-right: 5px;
+.headerLogoAccent {
+  color: var(--primary);
 }

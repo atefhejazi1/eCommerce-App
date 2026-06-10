@@ -1,8 +1,9 @@
 import { Loading } from "@components/feedback";
 import { Heading } from "@components/common";
-import { Table, Modal } from "react-bootstrap";
+import { Table, Modal, Badge } from "react-bootstrap";
 import useOrders from "@hooks/useOrders";
 import ProductInfo from "@components/ecommerce/ProductInfo/ProductInfo";
+import styles from "./Orders.module.css";
 
 const Orders = () => {
   const {
@@ -19,7 +20,7 @@ const Orders = () => {
     <>
       <Modal show={showModal} onHide={closeModalHandler}>
         <Modal.Header closeButton>
-          <Modal.Title>Products Details</Modal.Title>
+          <Modal.Title>Order Items</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedProduct.map((el) => (
@@ -30,41 +31,55 @@ const Orders = () => {
               price={el.price}
               quantity={el.quantity}
               direction="column"
-              style={{ marginBottom: "10px" }}
+              style={{ marginBottom: "14px" }}
             />
           ))}
         </Modal.Body>
       </Modal>
 
-      <Heading title="My Order" />
+      <Heading title="My Orders" />
       <Loading status={loading} error={error} type="table">
-        <Table>
-          <thead>
-            <tr>
-              <th>Order Number</th>
-              <th>Items</th>
-              <th>Total Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orderList.map((el) => (
-              <tr key={el.id}>
-                <td>#{el.id}</td>
-                <td>
-                  {el.items.length} item(s)
-                  {" / "}
-                  <span
-                    onClick={() => viewDetailsHandler(el.id)}
-                    style={{ textDecoration: "underline", cursor: "pointer" }}
-                  >
-                    Product Details
-                  </span>
-                </td>
-                <td>{el.subtotal.toFixed(2)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        {orderList.length === 0 ? (
+          <p style={{ color: "var(--text-muted)", padding: "24px 0" }}>
+            You haven't placed any orders yet.
+          </p>
+        ) : (
+          <div className={styles.tableWrapper}>
+            <Table hover responsive className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderList.map((el) => (
+                  <tr key={el.id}>
+                    <td>
+                      <Badge bg="secondary" className={styles.orderBadge}>
+                        #{el.id}
+                      </Badge>
+                    </td>
+                    <td>{el.items.length} item{el.items.length !== 1 ? "s" : ""}</td>
+                    <td className={styles.price}>
+                      {el.subtotal.toFixed(2)} EGP
+                    </td>
+                    <td>
+                      <button
+                        className={styles.detailsBtn}
+                        onClick={() => viewDetailsHandler(el.id)}
+                      >
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        )}
       </Loading>
     </>
   );

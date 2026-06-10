@@ -1,21 +1,17 @@
 import { Container } from "react-bootstrap";
 import { Header, Footer } from "@components/common";
-
 import styles from "./styles.module.css";
 import { Outlet } from "react-router";
-import { ToastList } from "@components/feedback";
 
-const { container, wrapper } = styles;
 function MainLayout() {
   return (
-    <Container className={container}>
+    <div className={styles.layout}>
       <Header />
-      <div className={wrapper}>
+      <Container className={styles.wrapper}>
         <Outlet />
-      </div>
-      {/* <ToastList /> */}
+      </Container>
       <Footer />
-    </Container>
+    </div>
   );
 }
 

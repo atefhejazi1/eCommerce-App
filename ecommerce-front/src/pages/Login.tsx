@@ -1,8 +1,8 @@
-import { Heading } from "@components/common";
 import { Input } from "@components/Form";
-import { Form, Button, Row, Col, Alert, Spinner } from "react-bootstrap";
-import { Navigate } from "react-router";
+import { Form, Button, Alert, Spinner } from "react-bootstrap";
+import { Link, Navigate } from "react-router";
 import useLogin from "@hooks/useLogin";
+import styles from "./Auth.module.css";
 
 const Login = () => {
   const {
@@ -15,55 +15,85 @@ const Login = () => {
     searchParams,
     errors,
   } = useLogin();
-  if (accessToken) {
-    return <Navigate to={"/"} />;
-  }
-  return (
-    <>
-      <Heading title="User Login" />
-      <Row>
-        <Col md={{ span: 6, offset: 3 }}>
-          {searchParams.get("message") === "login_required" && (
-            <Alert variant="success">
-              You Need To Login To View This Content
-            </Alert>
-          )}
-          {searchParams.get("message") === "account_created" && (
-            <Alert variant="success">
-              Your Account Created Successfully , Please Login
-            </Alert>
-          )}
 
-          <Form onSubmit={handleSubmit(submitForm)}>
-            <Input
-              name="email"
-              label="Email Address"
-              register={register}
-              error={errors.email?.message}
-            />
-            <Input
-              type="password"
-              name="password"
-              label="Password"
-              register={register}
-              error={errors.password?.message}
-            />
-            <Button variant="info" type="submit" style={{ color: "white" }}>
-              {loading === "pending" ? (
-                <>
-                  <Spinner animation="border" size="sm"></Spinner> Loading...
-                </>
-              ) : (
-                "Submit"
-              )}
-            </Button>
-            {error && (
-              <p style={{ color: "#dc3545", marginTop: "10px" }}>{error}</p>
+  if (accessToken) return <Navigate to={"/"} />;
+
+  return (
+    <div className={styles.authPage}>
+      {/* ── Brand panel ── */}
+      <div className={styles.brandPanel}>
+        <div className={styles.brandLogo}>
+          Our <span>eCom</span>
+        </div>
+        <h2 className={styles.brandTitle}>
+          Welcome <span>back</span> to<br />your store
+        </h2>
+        <p className={styles.brandSub}>
+          Sign in and pick up where you left off — your cart and wishlist are waiting.
+        </p>
+        <div className={styles.brandFeatures}>
+          <div className={styles.brandFeature}>
+            <span>🛒</span> Instant access to your cart
+          </div>
+          <div className={styles.brandFeature}>
+            <span>❤️</span> Saved wishlist items
+          </div>
+          <div className={styles.brandFeature}>
+            <span>📦</span> Full order history
+          </div>
+        </div>
+      </div>
+
+      {/* ── Form panel ── */}
+      <div className={styles.formPanel}>
+        <div className={styles.formHeader}>
+          <h2 className={styles.formTitle}>Sign in</h2>
+          <p className={styles.formSub}>Enter your credentials to continue</p>
+        </div>
+
+        {searchParams.get("message") === "login_required" && (
+          <Alert variant="warning" className="mb-3" style={{ fontSize: 14 }}>
+            Please sign in to view that content.
+          </Alert>
+        )}
+        {searchParams.get("message") === "account_created" && (
+          <Alert variant="success" className="mb-3" style={{ fontSize: 14 }}>
+            Account created — please log in.
+          </Alert>
+        )}
+
+        <Form onSubmit={handleSubmit(submitForm)}>
+          <Input
+            name="email"
+            label="Email Address"
+            register={register}
+            error={errors.email?.message}
+          />
+          <Input
+            type="password"
+            name="password"
+            label="Password"
+            register={register}
+            error={errors.password?.message}
+          />
+
+          {error && <p className={styles.formError}>{error}</p>}
+
+          <Button variant="info" type="submit" className={styles.submitBtn}>
+            {loading === "pending" ? (
+              <><Spinner animation="border" size="sm" /> Signing in…</>
+            ) : (
+              "Sign In"
             )}
-          </Form>
-        </Col>
-      </Row>
-    </>
+          </Button>
+        </Form>
+
+        <p className={styles.switchLink}>
+          Don't have an account?{" "}
+          <Link to="/register">Create one free</Link>
+        </p>
+      </div>
+    </div>
   );
 };
 
