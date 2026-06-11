@@ -34,6 +34,13 @@
       "firstName": "Felix",
       "lastName": "Pena",
       "id": 5
+    },
+    {
+      "email": "test@screenshot.com",
+      "password": "$2a$10$l5jE1Pdxhp5/mbaFgEa/xOvU9jtkWWzWRlSm/juW7ljub5.0fu4g.",
+      "id": 6,
+      "firstName": "Test",
+      "lastName": "User"
     }
   ],
   "category": [
@@ -149,6 +156,16 @@
       "userId": "1",
       "productId": 3,
       "id": 3
+    },
+    {
+      "userId": "1",
+      "productId": 4,
+      "id": 4
+    },
+    {
+      "productId": 4,
+      "userId": 6,
+      "id": 5
     }
   ],
   "orders": [
@@ -277,6 +294,27 @@
       ],
       "subtotal": 658,
       "id": 6
+    },
+    {
+      "userId": 6,
+      "items": [
+        {
+          "id": 1,
+          "title": "Jersey top",
+          "price": 249,
+          "img": "https://placehold.co/300x400/png?text=Men+Jersey+Top",
+          "quantity": 1
+        },
+        {
+          "id": 2,
+          "title": "Regular Fit Jersey top",
+          "price": 229,
+          "img": "https://placehold.co/300x400/png?text=Men+Regular+Fit+Jersey",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 478,
+      "id": 7
     }
   ]
 }
