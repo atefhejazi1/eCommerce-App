@@ -24,7 +24,7 @@ const CartItem = memo(
   }: CartItemProps) => {
     const renderOptions = Array(max)
       .fill(0)
-      .map((el, index) => {
+      .map((_, index) => {
         const optionQuantity = ++index; // Renamed to avoid confusion with prop 'quantity'
         return (
           <option value={optionQuantity} key={optionQuantity}>

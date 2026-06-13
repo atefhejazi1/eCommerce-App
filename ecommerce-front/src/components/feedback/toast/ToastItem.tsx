@@ -2,7 +2,13 @@ import styles from "./style.module.css";
 
 const { toastItem } = styles;
 
-const ToastItem = ({ type, title, message }) => {
+type ToastItemProps = {
+  type: string;
+  title: string;
+  message: string;
+};
+
+const ToastItem = ({ type, title, message }: ToastItemProps) => {
   return (
     <div className={`alert alert-${type} ${toastItem}`}>
       <h5>{title}</h5>

@@ -5,7 +5,10 @@ import { type TOrderItem } from "./order.types";
 import { isString } from "./guards";
 
 // 1. تصدير الأنواع كأنواع بشكل منفصل (هنا الحل للخطأ)
-export type { TProduct, TLoading, TCategory, TOrderItem };
+export type { TProduct };
+export type { TLoading };
+export type { TCategory };
+export type { TOrderItem };
 
 // 2. تصدير الدالة كقيمة عادية
 export { isString };

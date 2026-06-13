@@ -5,7 +5,7 @@ import {
   cartItemRemove,
   cartItemsChangeQuantity,
   cleanCartProductsFullInfo,
-} from "@store/cart/cartSlice";
+} from "@store/cart/CartSlice";
 import { resetOrderStatus } from "@store/orders/ordersSlice";
 
 const useCart = () => {

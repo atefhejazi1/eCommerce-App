@@ -4,13 +4,13 @@ import actAuthRegister from "./act/actAuthRegister";
 import actAuthLogin from "./act/actAuthLogin";
 
 interface IAuthState {
-  accessToken: string;
+  accessToken: string | null;
   user: {
     id: number;
     firstName: string;
     lastName: string;
     email: string;
-  };
+  } | null;
   loading: TLoading;
   error: string | null;
 }
@@ -43,10 +43,10 @@ const authSlice = createSlice({
     builder.addCase(actAuthRegister.fulfilled, (state, action) => {
       state.loading = "succeeded";
     });
-    builder.addCase(actAuthRegister.rejected, (state, action) => {
+    builder.addCase(actAuthRegister.rejected, (state, _action) => {
       state.loading = "failed";
-      if (isString(action.payload)) {
-        state.error = action.payload;
+      if (isString(_action.payload)) {
+        state.error = _action.payload;
       }
     });
 
